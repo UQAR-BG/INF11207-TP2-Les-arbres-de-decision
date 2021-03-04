@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "2i0Ay79KALVJ12X2rqFBbBAIWXzFX/NH5Qpq6gexHAKznB8yF4ei68Q76VG3ZJh4Uo0AV1Bi7OpXNl3HRU7MzQ==",
+  "dgSpecHash": "WKR39R6IucSd2Q3UJfahjpd8S3V9UI3pBUo43/X/KjrSBdgDPGPm1q+u/4XE2mcrJ6i+Sc4mEBzsLVgyUejkpA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\basti\\source\\repos\\INF11207-TP2-Les-arbres-de-decision\\TP2-Les-arbres-de-decision\\TP2-Les-arbres-de-decision\\TP2-Les-arbres-de-decision.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\basti\\source\\repos\\INF11207-TP2-Les-arbres-de-decision\\TP2-Les-arbres-de-decision\\TP2-Les-arbres-de-decision.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\basti\\.nuget\\packages\\csvhelper\\26.0.0\\csvhelper.26.0.0.nupkg.sha512",
+    "C:\\Users\\basti\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512"
+  ],
   "logs": []
 }

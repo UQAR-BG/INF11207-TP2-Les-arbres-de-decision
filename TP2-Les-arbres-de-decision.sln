@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP2-Les-arbres-de-decision", "TP2-Les-arbres-de-decision\TP2-Les-arbres-de-decision.csproj", "{FC21C8FE-0059-4D9D-A637-C749A968A173}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TP2-Les-arbres-de-decision", "TP2-Les-arbres-de-decision\TP2-Les-arbres-de-decision.csproj", "{FC21C8FE-0059-4D9D-A637-C749A968A173}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP2-Tests", "TP2-Tests\TP2-Tests.csproj", "{F7850A88-6F37-499D-84C9-2A77343D6D96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{FC21C8FE-0059-4D9D-A637-C749A968A173}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FC21C8FE-0059-4D9D-A637-C749A968A173}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FC21C8FE-0059-4D9D-A637-C749A968A173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7850A88-6F37-499D-84C9-2A77343D6D96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7850A88-6F37-499D-84C9-2A77343D6D96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7850A88-6F37-499D-84C9-2A77343D6D96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7850A88-6F37-499D-84C9-2A77343D6D96}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
