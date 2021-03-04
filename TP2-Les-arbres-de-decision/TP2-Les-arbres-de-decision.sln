@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP2-Les-arbres-de-decision", "TP2-Les-arbres-de-decision\TP2-Les-arbres-de-decision.csproj", "{FC21C8FE-0059-4D9D-A637-C749A968A173}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC21C8FE-0059-4D9D-A637-C749A968A173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC21C8FE-0059-4D9D-A637-C749A968A173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC21C8FE-0059-4D9D-A637-C749A968A173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC21C8FE-0059-4D9D-A637-C749A968A173}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1D387F46-26AA-4825-9607-673055875DB2}
+	EndGlobalSection
+EndGlobal
