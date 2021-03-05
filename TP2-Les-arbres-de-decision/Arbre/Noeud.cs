@@ -4,12 +4,15 @@ namespace TP2_Les_arbres_de_decision.Arbre
 {
     public class Noeud
     {
+        private int pointeurProchaineBrancheVide;
+
         public List<Branche> Branches { get; private set; }
         public string Valeur { get; set; }
 
         public Noeud()
         {
             Branches = new List<Branche>();
+            pointeurProchaineBrancheVide = 0;
         }
 
         public void CreerBranches(List<string> ensembles)
@@ -21,20 +24,22 @@ namespace TP2_Les_arbres_de_decision.Arbre
             }
         }
 
-        public bool AjouterNoeudAuBoutDeBranche(Noeud nouveauNoeud, int index)
+        public bool AjouterNoeudAuBoutDeBranche(Noeud nouveauNoeud)
         {
-            if (index >= 0)
+            if (pointeurProchaineBrancheVide < Branches.Count)
             {
-                Branches[index].Successeur = nouveauNoeud;
+                Branches[pointeurProchaineBrancheVide].Successeur = nouveauNoeud;
+                pointeurProchaineBrancheVide++;
                 return true;
             }
 
             return false;
         }
 
-        public bool RetirerBranche(int index)
+        public bool RetirerBranche(string titre)
         {
-            if (IndexExiste(index))
+            int index = IndexOf(titre);
+            if (index >= 0)
             {
                 Branches.RemoveAt(index);
                 return true;
@@ -54,16 +59,12 @@ namespace TP2_Les_arbres_de_decision.Arbre
                 if (Branches[compteur].Titre.Equals(valeur))
                 {
                     indexBranche = compteur;
+                    brancheTrouvee = true;
                 }
                 compteur++;
             }
 
             return indexBranche;
-        }
-
-        private bool IndexExiste(int index)
-        {
-            return index > 0 && index < Branches.Count;
         }
     }
 }

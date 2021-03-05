@@ -94,11 +94,11 @@ namespace TP2_Les_arbres_de_decision.Arbre
                 if (sousEnsemble.Rows.Count > 0)
                 {
                     attributs.Remove(attributLePlusSignificatif);
-                    noeud.AjouterNoeudAuBoutDeBranche(NouveauNoeud(sousEnsemble, classe, attributs), i);
+                    noeud.AjouterNoeudAuBoutDeBranche(NouveauNoeud(sousEnsemble, classe, attributs));
                 }
                 else
                 {
-                    noeud.RetirerBranche(i);
+                    noeud.RetirerBranche(attributLePlusSignificatif.Ensembles[i]);
                 }
             }
 
