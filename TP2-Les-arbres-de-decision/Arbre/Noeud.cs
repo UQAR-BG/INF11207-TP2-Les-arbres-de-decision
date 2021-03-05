@@ -1,36 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace TP2_Les_arbres_de_decision.Arbre
 {
     public class Noeud
     {
-        public List<Noeud> Successeurs { get; }
+        public List<Branche> Branches { get; private set; }
         public string Valeur { get; set; }
 
         public Noeud()
         {
-            Successeurs = new List<Noeud>();
+            Branches = new List<Branche>();
         }
 
-        /*public bool AjouterParent(Noeud parent)
+        public void CreerBranches(List<string> ensembles)
         {
-            if (parent.Valeur == Valeur)
+            Branches = new List<Branche>();
+            foreach (string ensemble in ensembles)
             {
-                return false;
+                Branches.Add(new Branche(ensemble));
+            }
+        }
+
+        public bool AjouterNoeudAuBoutDeBranche(Noeud nouveauNoeud, int index)
+        {
+            if (index >= 0)
+            {
+                Branches[index].Successeur = nouveauNoeud;
+                return true;
             }
 
-            if (parent.Valeur < Valeur)
+            return false;
+        }
+
+        public bool RetirerBranche(int index)
+        {
+            if (IndexExiste(index))
             {
-                ParentGauche = parent;
-            }
-            else
-            {
-                ParentDroite = parent;
+                Branches.RemoveAt(index);
+                return true;
             }
 
-            return true;
-        }*/
+            return false;
+        }
+
+        private bool IndexExiste(int index)
+        {
+            return index > 0 && index < Branches.Count;
+        }
     }
 }

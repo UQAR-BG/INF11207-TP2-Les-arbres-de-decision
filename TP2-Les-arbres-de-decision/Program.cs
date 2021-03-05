@@ -60,23 +60,20 @@ namespace TP2_Les_arbres_de_decision
                         data.Rows.Add("yes", "overcast", "hot", "normal", "weak");
                         data.Rows.Add("no", "rainy", "mild", "high", "strong");
 
-                        Attribut classe = new Attribut("play", new List<string>
+                        List<Attribut> attributs = new List<Attribut>
                         {
-                            "yes",
-                            "no"
-                        }, true);
-                        Attribut attr = new Attribut("outlook", new List<string>
-                        {
-                            "sunny",
-                            "overcast",
-                            "rainy"
-                        }, false);
-                        Gains gains = new Gains(data, classe);
+                            new Attribut("outlook", new List<string> { "sunny", "overcast", "rainy" }, false),
+                            new Attribut("temperature", new List<string> { "hot", "mild", "cool" }, false),
+                            new Attribut("humidity", new List<string> { "high", "normal" }, false),
+                            new Attribut("windy", new List<string> { "weak", "strong" }, false)
+                        };
 
-                        double gainsInfo;
+                        Attribut classe = new Attribut("play", new List<string> { "yes", "no" }, true);
 
-                        gainsInfo = gains.GainsInformation(attr);
-                        gainsInfo = Math.Round(gainsInfo, 3);
+                        ArbreDecision arbre = new ArbreDecision();
+                        arbre.ConstruireArbreDecisionID3(data, classe, attributs);
+
+                        int a = dt.Rows.Count;
                     }
                 }
             }

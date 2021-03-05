@@ -16,15 +16,74 @@ namespace TP2_Les_arbres_de_decision.Arbre
             Racine = NouveauNoeud(data, classe, attributs);
         }
 
-        private Noeud NouveauNoeud(DataTable data, Attribut classe, List<Attribut> attributs)
+        public Attribut CalculerAttributLePlusSignificatif(Gains service, List<Attribut> attributs)
+        {
+            int indexAttributSignificatif = 0;
+            double gainPrecedent = 0;
+            double gain = 0;
+
+            for (int i = 0; i < attributs.Count; i++)
+            {
+                gain = service.GainsInformation(attributs[i]);
+
+                if (gain > gainPrecedent)
+                {
+                    gainPrecedent = gain;
+                    indexAttributSignificatif = i;
+                }
+            }
+
+            return attributs[indexAttributSignificatif];
+        }
+
+        public DataTable ContientUneValeurSpecifiquePourAttribut(string valeur, Attribut cible, DataTable data)
+        {
+            DataTable sousEnsemble = new DataTable();
+            DataRow[] lignes = data.Select($"{cible.Titre} = '{valeur}'");
+
+            if (lignes.Length > 0)
+            {
+                sousEnsemble = lignes.CopyToDataTable();
+            }
+
+            return sousEnsemble;
+        }
+
+        public Noeud NouveauNoeud(DataTable data, Attribut classe, List<Attribut> attributs)
         {
             Noeud noeud = new Noeud();
             service = new Gains(data, classe);
 
             if (TousLesEnregistrementOntMemeClasse(classe))
             {
-                noeud.Valeur = EnsembleDeClasseLePlusPresent(classe);
-                return noeud;
+                string ensemble = EnsembleDeClasseLePlusPresent(classe);
+                return CreerRacineSeule(ensemble);
+            }
+
+            if (attributs.Count == 0)
+            {
+                string ensemble = EnsembleDeClasseLePlusPresent(classe);
+                return CreerRacineSeule(ensemble);
+            }
+
+            Attribut attributLePlusSignificatif = CalculerAttributLePlusSignificatif(service, attributs);
+            noeud.Valeur = attributLePlusSignificatif.Titre;
+            noeud.CreerBranches(attributLePlusSignificatif.Ensembles);
+
+            // Pour chaque branche du noeud
+            for (int i = 0; i < attributLePlusSignificatif.Ensembles.Count; i++)
+            {
+                DataTable sousEnsemble = ContientUneValeurSpecifiquePourAttribut(attributLePlusSignificatif.Ensembles[i], attributLePlusSignificatif, data);
+
+                if (sousEnsemble.Rows.Count > 0)
+                {
+                    attributs.Remove(attributLePlusSignificatif);
+                    noeud.AjouterNoeudAuBoutDeBranche(NouveauNoeud(sousEnsemble, classe, attributs), i);
+                }
+                else
+                {
+                    noeud.RetirerBranche(i);
+                }
             }
 
             return noeud;
@@ -43,6 +102,13 @@ namespace TP2_Les_arbres_de_decision.Arbre
             }
 
             return tousOntMemeClasse;
+        }
+
+        private Noeud CreerRacineSeule(string nomRacine)
+        {
+            Noeud noeud = new Noeud();
+            noeud.Valeur = nomRacine;
+            return noeud;
         }
 
         private string EnsembleDeClasseLePlusPresent(Attribut classe)
