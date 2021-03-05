@@ -1,9 +1,6 @@
-﻿using CsvHelper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Globalization;
-using System.IO;
 using TP2_Les_arbres_de_decision.Arbre;
 using TP2_Les_arbres_de_decision.Services;
 
@@ -13,70 +10,63 @@ namespace TP2_Les_arbres_de_decision
     {
         static void Main(string[] args)
         {
-            using (var reader = new StreamReader("tennis.csv"))
+            ArbreTennis();
+            ArbreAnimaux();
+        }
+
+        private static void ArbreTennis()
+        {
+            Console.WriteLine("Lecture du fichier tennis.csv en cours...");
+            DataTable tennis = Csv.LireCsv("tennis.csv");
+            Console.WriteLine("Lecture du fichier tennis.csv complétée\n");
+
+            Attribut classe = new Attribut("play", new List<string> { "yes", "no" }, true);
+            List<Attribut> attributs = new List<Attribut>
             {
-                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
-                {
-                    using (var dr = new CsvDataReader(csv))
-                    {
-                        var dt = new DataTable();
-                        dt.Load(dr);
+                new Attribut("outlook", new List<string> { "sunny", "overcast", "rainy" }, false),
+                new Attribut("temperature", new List<string> { "hot", "mild", "cool" }, false),
+                new Attribut("humidity", new List<string> { "high", "normal" }, false),
+                new Attribut("windy", new List<string> { "weak", "strong" }, false)
+            };
 
-                        for (int j = 0; j < dt.Rows.Count; j++)
-                        {
-                            for (int i = 0; i < dt.Columns.Count; i++)
-                            {
-                                Console.Write(dt.Columns[i].ColumnName + " ");
-                                Console.WriteLine(dt.Rows[j].ItemArray[i]);
-                            }
-                        }
+            ArbreDecision arbre = new ArbreDecision();
+            arbre.ConstruireArbreDecisionID3(tennis, classe, attributs);
+            Console.WriteLine("L'arbre de décision entrâiné par les données du fichier tennis.csv est prêt\n");
 
-                        DataTable data = new DataTable();
+            DataRow echantillon = tennis.NewRow();
+            echantillon["outlook"] = "overcast";
+            echantillon["temperature"] = "hot";
+            echantillon["humidity"] = "normal";
+            echantillon["windy"] = "strong";
 
-                        DataColumn play = new DataColumn("play", typeof(string));
-                        DataColumn outlook = new DataColumn("outlook", typeof(string));
-                        DataColumn temperature = new DataColumn("temperature", typeof(string));
-                        DataColumn humidity = new DataColumn("humidity", typeof(string));
-                        DataColumn windy = new DataColumn("windy", typeof(string));
+            Console.WriteLine("Test de l'échantillon [ 'outlook': 'overcast', 'temperature': 'hot', 'humidity': 'normal', 'windy': 'strong' ]");
+            TesterUnEchantillon(arbre, echantillon);
 
-                        data.Columns.Add(play);
-                        data.Columns.Add(outlook);
-                        data.Columns.Add(temperature);
-                        data.Columns.Add(humidity);
-                        data.Columns.Add(windy);
+            echantillon = tennis.NewRow();
+            echantillon["outlook"] = "rainy";
+            echantillon["temperature"] = "mild";
+            echantillon["humidity"] = "high";
+            echantillon["windy"] = "strong";
 
-                        data.Rows.Add("no", "sunny", "hot", "high", "weak");
-                        data.Rows.Add("no", "sunny", "hot", "high", "strong");
-                        data.Rows.Add("yes", "overcast", "hot", "high", "weak");
-                        data.Rows.Add("yes", "rainy", "mild", "high", "weak");
-                        data.Rows.Add("yes", "rainy", "cool", "normal", "weak");
-                        data.Rows.Add("no", "rainy", "cool", "normal", "strong");
-                        data.Rows.Add("yes", "overcast", "cool", "normal", "strong");
-                        data.Rows.Add("no", "sunny", "mild", "high", "weak");
-                        data.Rows.Add("yes", "sunny", "cool", "normal", "weak");
-                        data.Rows.Add("yes", "rainy", "mild", "normal", "weak");
-                        data.Rows.Add("yes", "sunny", "mild", "normal", "strong");
-                        data.Rows.Add("yes", "overcast", "mild", "high", "strong");
-                        data.Rows.Add("yes", "overcast", "hot", "normal", "weak");
-                        data.Rows.Add("no", "rainy", "mild", "high", "strong");
+            Console.WriteLine("Test de l'échantillon [ 'outlook': 'rainy', 'temperature': 'mild', 'humidity': 'high', 'windy': 'strong' ]");
+            TesterUnEchantillon(arbre, echantillon);
+        }
 
-                        List<Attribut> attributs = new List<Attribut>
-                        {
-                            new Attribut("outlook", new List<string> { "sunny", "overcast", "rainy" }, false),
-                            new Attribut("temperature", new List<string> { "hot", "mild", "cool" }, false),
-                            new Attribut("humidity", new List<string> { "high", "normal" }, false),
-                            new Attribut("windy", new List<string> { "weak", "strong" }, false)
-                        };
+        public static void TesterUnEchantillon(ArbreDecision arbre, DataRow echantillon)
+        {
+            string decision = arbre.TesterUnEchantillon(echantillon);
+            Console.WriteLine(decision + "\n");
+        }
 
-                        Attribut classe = new Attribut("play", new List<string> { "yes", "no" }, true);
+        private static void ArbreAnimaux()
+        {
+            Console.WriteLine("Lecture du fichier zoo.csv en cours...");
+            DataTable zoo = Csv.LireCsv("zoo.csv");
+            Console.WriteLine("Lecture du fichier zoo.csv complétée\n");
 
-                        ArbreDecision arbre = new ArbreDecision();
-                        arbre.ConstruireArbreDecisionID3(data, classe, attributs);
-
-                        int a = dt.Rows.Count;
-                    }
-                }
-            }
+            Console.WriteLine("Lecture du fichier class.csv en cours...");
+            DataTable classAnimaux = Csv.LireCsv("class.csv");
+            Console.WriteLine("Lecture du fichier class.csv complétée\n");
         }
     }
 }

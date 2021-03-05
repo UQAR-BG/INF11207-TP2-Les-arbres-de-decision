@@ -43,6 +43,24 @@ namespace TP2_Les_arbres_de_decision.Arbre
             return false;
         }
 
+        public int IndexOf(string valeur)
+        {
+            bool brancheTrouvee = false;
+            int indexBranche = -1;
+            int compteur = 0;
+
+            while (!brancheTrouvee && compteur < Branches.Count)
+            {
+                if (Branches[compteur].Titre.Equals(valeur))
+                {
+                    indexBranche = compteur;
+                }
+                compteur++;
+            }
+
+            return indexBranche;
+        }
+
         private bool IndexExiste(int index)
         {
             return index > 0 && index < Branches.Count;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using TP2_Les_arbres_de_decision.Services;
+using TP2_Les_arbres_de_decision.Extensions;
 
 namespace TP2_Les_arbres_de_decision.Arbre
 {
@@ -49,7 +50,22 @@ namespace TP2_Les_arbres_de_decision.Arbre
             return sousEnsemble;
         }
 
-        public Noeud NouveauNoeud(DataTable data, Attribut classe, List<Attribut> attributs)
+        public string TesterUnEchantillon(DataRow echantillon)
+        {
+            if (echantillon.ItemArray.Length == 0)
+            {
+                return "Malheureusement, l'échantillon est vide";
+            }
+
+            if (Racine != null)
+            {
+                return CheminATraversArbre(Racine, echantillon);
+            }
+
+            return "";
+        }
+
+        private Noeud NouveauNoeud(DataTable data, Attribut classe, List<Attribut> attributs)
         {
             Noeud noeud = new Noeud();
             service = new Gains(data, classe);
@@ -130,6 +146,32 @@ namespace TP2_Les_arbres_de_decision.Arbre
             }
 
             return ensembleLePlusPresent;
+        }
+
+        private string CheminATraversArbre(Noeud position, DataRow echantillon)
+        {
+            if (position.Branches.Count == 0)
+            {
+                return $"Décision prise : {position.Valeur}";
+            }
+            else
+            {
+                if (!DataRowExt.AttributExiste(echantillon, position.Valeur))
+                {
+                    return $"Erreur : Il manque la valeur pour le noeud {position.Valeur} dans l'échantillon ";
+                }
+
+                string valeur = echantillon[position.Valeur].ToString();
+                int indexBranche = position.IndexOf(valeur);
+                if (indexBranche >= 0)
+                {
+                    return CheminATraversArbre(position.Branches[indexBranche].Successeur, echantillon);
+                }
+                else
+                {
+                    return $"Erreur : La valeur {valeur} dans l'attribut {position.Valeur} est inconnue ";
+                }
+            }
         }
     }
 }
