@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using TP2_Les_arbres_de_decision.Services;
+using TP2_Les_arbres_de_decision.Services.GainsInformation;
 
 namespace TP2_Les_arbres_de_decision.Arbre
 {
     public class DataFrame
     {
-        private Gains service;
-
         public DataTable Data { get; }
         public List<Attribut> Attributs { get; }
         public Attribut Classe { get; }
@@ -18,7 +17,6 @@ namespace TP2_Les_arbres_de_decision.Arbre
             Data = data;
             Attributs = attributs;
             Classe = classe;
-            service = CreerServiceGains(data, classe);
         }
 
         public bool TousLesEnregistrementOntMemeClasse()
@@ -29,7 +27,7 @@ namespace TP2_Les_arbres_de_decision.Arbre
             Recherche conditions = new Recherche(Classe);
             conditions.ValeurClasse = EnsembleDeClasseLePlusPresent();
 
-            nbreLignesPourEnsemblePlusPresent = service.NombreLignes(conditions);
+            nbreLignesPourEnsemblePlusPresent = NombreLignes.CompterNombreLignes(conditions);
             if (nbreLignesPourEnsemblePlusPresent >= Data.Rows.Count)
             {
                 tousOntMemeClasse = true;
@@ -48,7 +46,7 @@ namespace TP2_Les_arbres_de_decision.Arbre
             foreach (string ensemble in Classe.Ensembles)
             {
                 conditions.ValeurClasse = ensemble;
-                nombreLignes = service.NombreLignes(conditions);
+                nombreLignes = NombreLignes.CompterNombreLignes(conditions);
                 if (nombreLignes > nombreLignesPrecedent)
                 {
                     nombreLignesPrecedent = nombreLignes;
@@ -57,16 +55,6 @@ namespace TP2_Les_arbres_de_decision.Arbre
             }
 
             return ensembleLePlusPresent;
-        }
-
-        private Gains CreerServiceGains(DataTable data, Attribut classe)
-        {
-            if (classe.Ensembles.Count == 0)
-            {
-                TableVide = true;
-            }
-
-            return new Gains(data, classe);
         }
     }
 }

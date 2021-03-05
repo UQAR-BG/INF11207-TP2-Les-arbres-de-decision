@@ -1,31 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
 using TP2_Les_arbres_de_decision.Services;
 using TP2_Les_arbres_de_decision.Extensions;
+using TP2_Les_arbres_de_decision.Services.GainsInformation;
 
 namespace TP2_Les_arbres_de_decision.Arbre
 {
     public class ArbreDecision
     {
-        private Gains service;
-
         public Noeud Racine { get; private set; }
 
         public void ConstruireArbreDecisionID3(DataTable data, Attribut classe, List<Attribut> attributs)
         {
+            DataStorage.StockerDonnees(data, attributs, classe);
+
             Racine = NouveauNoeud(data, classe, attributs);
         }
 
-        public Attribut CalculerAttributLePlusSignificatif(Gains service, List<Attribut> attributs)
+        public Attribut CalculerAttributLePlusSignificatif(List<Attribut> attributs)
         {
             int indexAttributSignificatif = 0;
             double gainPrecedent = 0;
-            double gain = 0;
+            double gain;
 
             for (int i = 0; i < attributs.Count; i++)
             {
-                gain = service.GainsInformation(attributs[i]);
+                gain = Gains.CalculerGainsInformation(attributs[i]);
 
                 if (gain > gainPrecedent)
                 {
@@ -68,7 +68,7 @@ namespace TP2_Les_arbres_de_decision.Arbre
         private Noeud NouveauNoeud(DataTable data, Attribut classe, List<Attribut> attributs)
         {
             Noeud noeud = new Noeud();
-            service = new Gains(data, classe);
+            DataStorage.StockerDonnees(data);
 
             if (TousLesEnregistrementOntMemeClasse(classe))
             {
@@ -82,7 +82,7 @@ namespace TP2_Les_arbres_de_decision.Arbre
                 return CreerRacineSeule(ensemble);
             }
 
-            Attribut attributLePlusSignificatif = CalculerAttributLePlusSignificatif(service, attributs);
+            Attribut attributLePlusSignificatif = CalculerAttributLePlusSignificatif(attributs);
             noeud.Valeur = attributLePlusSignificatif.Titre;
             noeud.CreerBranches(attributLePlusSignificatif.Ensembles);
 
@@ -112,7 +112,7 @@ namespace TP2_Les_arbres_de_decision.Arbre
             Recherche conditions = new Recherche(classe);
             conditions.Valeur = EnsembleDeClasseLePlusPresent(classe);
 
-            if (service.Probabilite(conditions) == 1)
+            if (Probabilites.CalculerProbabilite(conditions) == 1)
             {
                 tousOntMemeClasse = true;
             }
@@ -137,7 +137,7 @@ namespace TP2_Les_arbres_de_decision.Arbre
             foreach (string ensemble in classe.Ensembles)
             {
                 conditions.ValeurClasse = ensemble;
-                nombreLignes = service.NombreLignes(conditions);
+                nombreLignes = NombreLignes.CompterNombreLignes(conditions);
                 if (nombreLignes > nombreLignesPrecedent)
                 {
                     nombreLignesPrecedent = nombreLignes;
@@ -156,9 +156,9 @@ namespace TP2_Les_arbres_de_decision.Arbre
             }
             else
             {
-                if (!DataRowExt.AttributExiste(echantillon, position.Valeur))
+                if (!DataTableExt.AttributExiste(echantillon, position.Valeur))
                 {
-                    return $"Erreur : Il manque la valeur pour le noeud {position.Valeur} dans l'échantillon ";
+                    return $"Erreur : Il manque l'attribut {position.Valeur} dans l'échantillon ";
                 }
 
                 string valeur = echantillon[position.Valeur].ToString();

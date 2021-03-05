@@ -11,19 +11,17 @@ namespace TP2_Les_arbres_de_decision.Services
         {
             DataTable data = new DataTable();
 
-            if (!File.Exists(nomFichier))
+            if (File.Exists(nomFichier))
             {
-                return data;
-            }
-
-            using (StreamReader reader = new StreamReader("tennis.csv"))
-            {
-                using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                using (StreamReader reader = new StreamReader("tennis.csv"))
                 {
-                    using (CsvDataReader dataReader = new CsvDataReader(csv))
+                    using (CsvReader csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                     {
-                        data = new DataTable();
-                        data.Load(dataReader);
+                        using (CsvDataReader dataReader = new CsvDataReader(csv))
+                        {
+                            data = new DataTable();
+                            data.Load(dataReader);
+                        }
                     }
                 }
             }

@@ -5,7 +5,6 @@ C:\Users\basti\source\repos\INF11207-TP2-Les-arbres-de-decision\TP2-Les-arbres-d
 C:\Users\basti\source\repos\INF11207-TP2-Les-arbres-de-decision\TP2-Les-arbres-de-decision\bin\Debug\netcoreapp3.1\TP2-Les-arbres-de-decision.dll
 C:\Users\basti\source\repos\INF11207-TP2-Les-arbres-de-decision\TP2-Les-arbres-de-decision\bin\Debug\netcoreapp3.1\TP2-Les-arbres-de-decision.pdb
 C:\Users\basti\source\repos\INF11207-TP2-Les-arbres-de-decision\TP2-Les-arbres-de-decision\bin\Debug\netcoreapp3.1\CsvHelper.dll
-C:\Users\basti\source\repos\INF11207-TP2-Les-arbres-de-decision\TP2-Les-arbres-de-decision\obj\Debug\netcoreapp3.1\TP2-Les-arbres-de-decision.csprojAssemblyReference.cache
 C:\Users\basti\source\repos\INF11207-TP2-Les-arbres-de-decision\TP2-Les-arbres-de-decision\obj\Debug\netcoreapp3.1\TP2-Les-arbres-de-decision.AssemblyInfoInputs.cache
 C:\Users\basti\source\repos\INF11207-TP2-Les-arbres-de-decision\TP2-Les-arbres-de-decision\obj\Debug\netcoreapp3.1\TP2-Les-arbres-de-decision.AssemblyInfo.cs
 C:\Users\basti\source\repos\INF11207-TP2-Les-arbres-de-decision\TP2-Les-arbres-de-decision\obj\Debug\netcoreapp3.1\TP2-Les-arbres-de-decision.csproj.CoreCompileInputs.cache
