@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using TP2_Les_arbres_de_decision.Arbre;
+using TP2_Les_arbres_de_decision.Extensions;
 using TP2_Les_arbres_de_decision.Services.GainsInformation;
 
 namespace TP2_Tests
@@ -41,7 +42,7 @@ namespace TP2_Tests
         {
             Attribut attribut;
 
-            attribut = arbre.CalculerAttributLePlusSignificatif(attributs);
+            attribut = Attribut.CalculerAttributLePlusSignificatif(attributs);
 
             Assert.AreEqual("outlook", attribut.Titre);
         }
@@ -51,7 +52,7 @@ namespace TP2_Tests
         {
             DataTable sousEnsemble;
 
-            sousEnsemble = arbre.ContientUneValeurSpecifiquePourAttribut("sunny", attributs[0], data);
+            sousEnsemble = DataTableExt.ContientUneValeurSpecifiquePourAttribut("sunny", attributs[0], data);
 
             Assert.AreEqual(5, sousEnsemble.Rows.Count);
         }
