@@ -43,6 +43,10 @@
             "CsvHelper": {
               "target": "Package",
               "version": "[26.0.0, )"
+            },
+            "System.Configuration.ConfigurationManager": {
+              "target": "Package",
+              "version": "[5.0.0, )"
             }
           },
           "imports": [

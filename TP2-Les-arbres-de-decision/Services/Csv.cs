@@ -20,8 +20,10 @@ namespace TP2_Les_arbres_de_decision.Services
                     {
                         using (CsvDataReader dataReader = new CsvDataReader(csv))
                         {
+                            Console.WriteLine($"Lecture du fichier {nomFichier} en cours...");
                             data = new DataTable();
                             data.Load(dataReader);
+                            Console.WriteLine($"Lecture du fichier {nomFichier} complétée\n");
                         }
                     }
                 }
@@ -80,6 +82,7 @@ namespace TP2_Les_arbres_de_decision.Services
 
             zooTable.Columns["Class_Type"].ReadOnly = false;
 
+            Console.WriteLine("Fusion des fichiers zoo.csv et class.csv en cours...");
             foreach (DataRow ligne in zooTable.Rows)
             {
                 numeroClasse = ligne["class_type"].ToString();
@@ -91,6 +94,7 @@ namespace TP2_Les_arbres_de_decision.Services
                 ligne["class_type"] = nomClasse;
                 ligne.EndEdit();
             }
+            Console.WriteLine("Fusion des fichiers complétée\n");
 
             return zooTable;
         }
