@@ -55,7 +55,8 @@ namespace TP2_Les_arbres_de_decision.Arbre
             // Pour chaque branche du noeud
             for (int i = 0; i < attributLePlusSignificatif.Ensembles.Count; i++)
             {
-                DataTable sousEnsemble = DataTableExt.ContientUneValeurSpecifiquePourAttribut(attributLePlusSignificatif.Ensembles[i], attributLePlusSignificatif, data);
+                DataTable sousEnsemble = DataTableExt.ContientUneValeurSpecifiquePourAttribut(
+                    attributLePlusSignificatif.Ensembles[i], attributLePlusSignificatif, data);
 
                 if (sousEnsemble.Rows.Count > 0)
                 {
